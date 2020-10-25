@@ -1,11 +1,26 @@
 {
+    "name": "thenlabs/easy-mails",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Daniel Navarro Taño",
+            "email": "andaniel05@gmail.com"
+        }
+    ],
     "require": {
         "thenlabs/stratus-php": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "ThenLabs\\EasyMails\\": "src/",
+            "ThenLabs\\EasyMails\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "ThenLabs\\EasyMails\\Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "thenlabs/pyramidal-tests": "^1.1"
     }
 }
