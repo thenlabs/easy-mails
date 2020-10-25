@@ -1,0 +1,11 @@
+{
+    "require": {
+        "thenlabs/stratus-php": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "ThenLabs\\EasyMails\\": "src/",
+            "ThenLabs\\EasyMails\\Tests\\": "tests/"
+        }
+    }
+}
