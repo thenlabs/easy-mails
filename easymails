@@ -1,0 +1,8 @@
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+use ThenLabs\EasyMails\App;
+
+$app = new App;
+$app->run();
