@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ThenLabs\EasyMails;
 
+use Exception;
+
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
  */
@@ -12,7 +14,7 @@ class App
         'server' => [
             'http' => [
                 'host' => '127.0.0.1',
-                'port' => 9000,
+                'port' => 2020,
             ],
         ],
     ];
@@ -42,7 +44,13 @@ class App
 
         extract($this->config['server']['http']);
 
-        socket_bind($this->httpServerSocket, $host, $port);
+        if (! @socket_bind($this->httpServerSocket, $host, $port)) {
+            $errorcode = socket_last_error();
+            $errormsg = socket_strerror($errorcode);
+
+            throw new Exception($errormsg);
+        }
+
         socket_listen($this->httpServerSocket, 1);
         socket_set_nonblock($this->httpServerSocket);
     }
@@ -56,17 +64,23 @@ class App
         }
 
         $requestMessage = socket_read($clientSocket, 1024, PHP_BINARY_READ);
-        $parts = explode("\r\n", $requestMessage);
+        $parts = explode("\n\r", $requestMessage);
         $headers = explode("\n", $parts[0]);
 
         $firstLine = array_shift($headers);
 
         [$method, $url, $protocol] = explode(' ', $firstLine);
 
-        $responseMessage = implode("\n", $headers)."\r\n";
+        $responseHeaders = [
+            "{$protocol} 200 OK",
+            'Content-Type: text/html',
+            '',
+        ];
+
+        $responseMessage = implode("\n", $responseHeaders)."\n\r";
 
         if ($url === '/') {
-            $responseMessage .= $this->gui->render();
+            $responseMessage .= $this->gui;
         }
 
         socket_write($clientSocket, $responseMessage, strlen($responseMessage));
