@@ -4,5 +4,8 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use ThenLabs\EasyMails\App;
 
+define('TEMPLATES_DIR', __DIR__.'/templates');
+define('RESOURCES_DIR', TEMPLATES_DIR.'/resources');
+
 $app = new App;
 $app->run();

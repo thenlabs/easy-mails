@@ -66,21 +66,42 @@ class App
         $requestMessage = socket_read($clientSocket, 1024, PHP_BINARY_READ);
         $parts = explode("\n\r", $requestMessage);
         $headers = explode("\n", $parts[0]);
-
         $firstLine = array_shift($headers);
-
         [$method, $url, $protocol] = explode(' ', $firstLine);
 
-        $responseHeaders = [
-            "{$protocol} 200 OK",
-            'Content-Type: text/html',
-            '',
-        ];
-
-        $responseMessage = implode("\n", $responseHeaders)."\n\r";
+        $responseMessage = '';
 
         if ($url === '/') {
-            $responseMessage .= $this->gui;
+            $responseHeaders = [
+                "{$protocol} 200 OK",
+                'Content-Type: text/html',
+                '',
+            ];
+
+            $responseMessage = implode("\n", $responseHeaders)."\n\r".$this->gui;
+        } else {
+            $filename = RESOURCES_DIR.$url;
+            if (file_exists($filename)) {
+                $responseHeaders = [
+                    "{$protocol} 200 OK",
+                ];
+
+                $fileInfo = pathinfo($filename);
+
+                switch ($fileInfo['extension']) {
+                    case 'css':
+                        $responseHeaders[] = 'Content-Type: text/css';
+                        break;
+
+                    default:
+                        $responseHeaders[] = 'Content-Type: application/octet-stream';
+                        break;
+                }
+
+                $responseHeaders[] = '';
+
+                $responseMessage = implode("\n", $responseHeaders)."\n\r".file_get_contents($filename);
+            }
         }
 
         socket_write($clientSocket, $responseMessage, strlen($responseMessage));

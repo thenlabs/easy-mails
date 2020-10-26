@@ -12,17 +12,6 @@ class GUI extends AbstractApp
 {
     public function getView(array $data = []): string
     {
-        return <<<HTML
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
-            </head>
-            <body>
-            </body>
-            </html>
-        HTML;
+        return file_get_contents(TEMPLATES_DIR.'/mailbox.html');
     }
 }
