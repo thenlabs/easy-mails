@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace ThenLabs\EasyMails;
 
-use ThenLabs\StratusPHP\AbstractApp;
+use ThenLabs\StratusPHP\AbstractAppWithSElements;
 
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
  */
-class GUI extends AbstractApp
+class StratusApp extends AbstractAppWithSElements
 {
     public function getView(array $data = []): string
     {

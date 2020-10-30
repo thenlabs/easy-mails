@@ -9,7 +9,8 @@
     ],
     "require": {
         "thenlabs/stratus-php": "dev-master",
-        "thenlabs/http-server": "dev-main"
+        "thenlabs/http-server": "dev-main",
+        "thefox/smtpd": "^0.7.0"
     },
     "autoload": {
         "psr-4": {

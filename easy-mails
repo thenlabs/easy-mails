@@ -1,0 +1,41 @@
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+use ThenLabs\EasyMails\StratusApp;
+use ThenLabs\HttpServer\HttpServer;
+use ThenLabs\HttpServer\Event\RequestEvent;
+
+define('TEMPLATES_DIR', __DIR__.'/templates');
+
+$stratusApp = new StratusApp('/ajax');
+
+$httpServer = new HttpServer([
+    'host' => '127.0.0.1',
+    'port' => 8080,
+    'document_root' => TEMPLATES_DIR.'/resources',
+]);
+
+$dispatcher = $httpServer->getDispatcher();
+
+$dispatcher->addListener(RequestEvent::class, function ($event) use ($stratusApp) {
+    $request = $event->getRequest();
+    $response = $event->getResponse();
+
+    $uri = $request->getRequestUri();
+
+    if ('?%0A=' === substr($uri, -5)) {
+        $uri = substr($uri, 0, -5);
+    }
+
+    if ($uri == '/') {
+        $response->setContent($stratusApp->render());
+        $event->stopPropagation();
+    }
+});
+
+$httpServer->start();
+
+while (true) {
+    $httpServer->run();
+}
