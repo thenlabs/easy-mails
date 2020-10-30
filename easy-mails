@@ -11,7 +11,7 @@ $stratusApp = new StratusApp('/ajax');
 $httpServer = new HttpServer([
     'host' => '127.0.0.1',
     'port' => 8080,
-    'document_root' => __DIR__.'/templates/resources',
+    'document_root' => __DIR__.'/templates',
 ]);
 
 $dispatcher = $httpServer->getDispatcher();
