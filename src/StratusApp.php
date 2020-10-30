@@ -12,6 +12,6 @@ class StratusApp extends AbstractAppWithSElements
 {
     public function getView(array $data = []): string
     {
-        return file_get_contents(TEMPLATES_DIR.'/mailbox.html');
+        return file_get_contents(__DIR__.'/../templates/mailbox.html');
     }
 }

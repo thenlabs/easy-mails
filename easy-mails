@@ -6,14 +6,12 @@ use ThenLabs\EasyMails\StratusApp;
 use ThenLabs\HttpServer\HttpServer;
 use ThenLabs\HttpServer\Event\RequestEvent;
 
-define('TEMPLATES_DIR', __DIR__.'/templates');
-
 $stratusApp = new StratusApp('/ajax');
 
 $httpServer = new HttpServer([
     'host' => '127.0.0.1',
     'port' => 8080,
-    'document_root' => TEMPLATES_DIR.'/resources',
+    'document_root' => __DIR__.'/templates/resources',
 ]);
 
 $dispatcher = $httpServer->getDispatcher();
