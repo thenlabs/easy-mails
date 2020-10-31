@@ -14,4 +14,9 @@ class StratusApp extends AbstractAppWithSElements
     {
         return file_get_contents(__DIR__.'/../templates/index.html');
     }
+
+    public function onClickBody(): void
+    {
+        $this->showAlert('Hi');
+    }
 }

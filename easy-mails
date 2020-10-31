@@ -5,25 +5,44 @@ require_once __DIR__.'/vendor/autoload.php';
 use ThenLabs\EasyMails\StratusApp;
 use ThenLabs\HttpServer\HttpServer;
 use ThenLabs\HttpServer\Event\RequestEvent;
-
-$stratusApp = new StratusApp('/ajax');
+use ThenLabs\StratusPHP\StratusRequest;
+use function Opis\Closure\{serialize as s, unserialize as u};
 
 $httpServer = new HttpServer([
     'host' => '127.0.0.1',
     'port' => 8800,
-    'document_root' => __DIR__.'/templates',
+    'document_root' => __DIR__.'/public',
 ]);
 
 $dispatcher = $httpServer->getDispatcher();
 
-$dispatcher->addListener(RequestEvent::class, function ($event) use ($stratusApp) {
+$appSource = null;
+
+$dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource) {
     $request = $event->getRequest();
     $response = $event->getResponse();
 
     $uri = $event->getRequestUri();
 
     if ($uri == '/') {
+        $stratusApp = new StratusApp('/ajax');
+
+        $appSource = s($stratusApp);
+
         $response->setContent($stratusApp->render());
+        $event->stopPropagation();
+    } elseif (0 === strpos($uri, '/ajax')) {
+        $stratusApp = u($appSource);
+        $stratusRequest = StratusRequest::createFromJson(
+            $request->request->get('stratus_request')
+        );
+
+        $stratusResponse = $stratusApp->run($stratusRequest);
+
+        if ($stratusResponse->isSuccessful()) {
+            $appSource = s($stratusApp);
+        }
+
         $event->stopPropagation();
     }
 });
