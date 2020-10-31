@@ -10,7 +10,7 @@ $stratusApp = new StratusApp('/ajax');
 
 $httpServer = new HttpServer([
     'host' => '127.0.0.1',
-    'port' => 8080,
+    'port' => 8800,
     'document_root' => __DIR__.'/templates',
 ]);
 
@@ -20,11 +20,7 @@ $dispatcher->addListener(RequestEvent::class, function ($event) use ($stratusApp
     $request = $event->getRequest();
     $response = $event->getResponse();
 
-    $uri = $request->getRequestUri();
-
-    if ('?%0A=' === substr($uri, -5)) {
-        $uri = substr($uri, 0, -5);
-    }
+    $uri = $event->getRequestUri();
 
     if ($uri == '/') {
         $response->setContent($stratusApp->render());
