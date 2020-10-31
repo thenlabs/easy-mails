@@ -3,6 +3,7 @@
 require_once __DIR__.'/vendor/autoload.php';
 
 use ThenLabs\EasyMails\StratusApp;
+use ThenLabs\EasyMails\Bus;
 use ThenLabs\HttpServer\HttpServer;
 use ThenLabs\HttpServer\Event\RequestEvent;
 use ThenLabs\StratusPHP\StratusRequest;
@@ -25,14 +26,19 @@ $dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource
     $uri = $event->getRequestUri();
 
     if ($uri == '/') {
-        $stratusApp = new StratusApp('/ajax');
+        $stratusApp = new StratusApp('/controller');
 
         $appSource = s($stratusApp);
 
         $response->setContent($stratusApp->render());
         $event->stopPropagation();
-    } elseif (0 === strpos($uri, '/ajax')) {
+    } elseif (0 === strpos($uri, '/controller')) {
         $stratusApp = u($appSource);
+
+        $clientSocket = $event->getClientSocket();
+        $bus = new Bus($clientSocket);
+        $stratusApp->setBus($bus);
+
         $stratusRequest = StratusRequest::createFromJson(
             $request->request->get('stratus_request')
         );
@@ -42,6 +48,8 @@ $dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource
         if ($stratusResponse->isSuccessful()) {
             $appSource = s($stratusApp);
         }
+
+        $bus->close();
 
         $event->stopPropagation();
     }

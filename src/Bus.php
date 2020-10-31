@@ -10,15 +10,31 @@ use ThenLabs\StratusPHP\Bus\BusInterface;
  */
 class Bus implements BusInterface
 {
+    protected $socket;
+
+    public function __construct($socket)
+    {
+        $this->socket = $socket;
+    }
+
     public function open()
     {
     }
 
     public function write(array $data)
     {
+        $json = json_encode($data);
+
+        socket_write($this->socket, $json, strlen($json));
     }
 
     public function close()
     {
+        @socket_close($this->socket);
+    }
+
+    public function __sleep()
+    {
+        return [];
     }
 }
