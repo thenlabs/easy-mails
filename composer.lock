@@ -2209,16 +2209,16 @@
         },
         {
             "name": "thenlabs/composed-views",
-            "version": "v1.0.4",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thenlabs/composed-views.git",
-                "reference": "db5c288bf0881a2aedccf71d95501fc373c1d063"
+                "reference": "846c076e860b8e5ffb3ba55fbd2d1149d573fa75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thenlabs/composed-views/zipball/db5c288bf0881a2aedccf71d95501fc373c1d063",
-                "reference": "db5c288bf0881a2aedccf71d95501fc373c1d063",
+                "url": "https://api.github.com/repos/thenlabs/composed-views/zipball/846c076e860b8e5ffb3ba55fbd2d1149d573fa75",
+                "reference": "846c076e860b8e5ffb3ba55fbd2d1149d573fa75",
                 "shasum": ""
             },
             "require": {
@@ -2251,9 +2251,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thenlabs/composed-views/issues",
-                "source": "https://github.com/thenlabs/composed-views/tree/v1.0.4"
+                "source": "https://github.com/thenlabs/composed-views/tree/v1.0.6"
             },
-            "time": "2020-04-30T12:38:21+00:00"
+            "time": "2020-11-02T12:53:36+00:00"
         },
         {
             "name": "thenlabs/http-server",
@@ -2261,12 +2261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thenlabs/http-server.git",
-                "reference": "85be60de3139d779334ff3a94177b000f838d9f9"
+                "reference": "482c5f078037f746dd79cfaafd08be2ff6412834"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thenlabs/http-server/zipball/85be60de3139d779334ff3a94177b000f838d9f9",
-                "reference": "85be60de3139d779334ff3a94177b000f838d9f9",
+                "url": "https://api.github.com/repos/thenlabs/http-server/zipball/482c5f078037f746dd79cfaafd08be2ff6412834",
+                "reference": "482c5f078037f746dd79cfaafd08be2ff6412834",
                 "shasum": ""
             },
             "require": {
@@ -2300,7 +2300,7 @@
                 "issues": "https://github.com/thenlabs/http-server/issues",
                 "source": "https://github.com/thenlabs/http-server/tree/main"
             },
-            "time": "2020-10-31T20:33:55+00:00"
+            "time": "2020-11-01T23:43:48+00:00"
         },
         {
             "name": "thenlabs/stratus-php",
