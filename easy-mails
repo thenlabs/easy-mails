@@ -2,12 +2,13 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use ThenLabs\EasyMails\StratusApp;
+use ThenLabs\EasyMails\Page;
 use ThenLabs\EasyMails\Bus;
 use ThenLabs\HttpServer\HttpServer;
 use ThenLabs\HttpServer\Event\RequestEvent;
 use ThenLabs\StratusPHP\StratusRequest;
 use ThenLabs\ComposedViews\Event\RenderEvent;
+use ThenLabs\Components\Event\FilterDependenciesEvent;
 use ThenLabs\ComposedViews\Asset\Script;
 use function Opis\Closure\{serialize as s, unserialize as u};
 
@@ -21,50 +22,40 @@ $httpServer = new HttpServer([
 $dispatcher = $httpServer->getDispatcher();
 
 $appSource = null;
+$emails = [];
 
-$dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource) {
+$dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource, &$emails) {
     $request = $event->getRequest();
     $response = $event->getResponse();
 
     $uri = $event->getRequestUri();
 
     if ($uri == '/') {
-        $stratusApp = new StratusApp('/controller');
-        $stratusApp->addFilter(function (RenderEvent $event) {
-            $script = new Script('easy-mails', null, '');
-            $script->setSource(<<<JAVASCRIPT
-                setInterval(() => {
-                    stratusAppInstance.dispatch('update', {}, false);
-                }, 1000);
-            JAVASCRIPT);
+        $page = new Page('/controller');
 
-            $event->filter('body')->append($script->render());
-        });
+        $page->on('update', [$page, 'onUpdate']);
 
-        $stratusApp->on('update', function ($event) {
-            $app = $event->getApp();
-            $app->showAlert('Hi');
-        });
-
-        $response->setContent($stratusApp->render());
-        $appSource = s($stratusApp);
+        $response->setContent($page->render());
+        $appSource = s($page);
 
         $event->stopPropagation();
     } elseif (0 === strpos($uri, '/controller')) {
-        $stratusApp = u($appSource);
+        $page = u($appSource);
+
+        $page->setEmails($emails);
 
         $clientSocket = $event->getClientSocket();
         $bus = new Bus($clientSocket);
-        $stratusApp->setBus($bus);
+        $page->setBus($bus);
 
         $stratusRequest = StratusRequest::createFromJson(
             $request->request->get('stratus_request')
         );
 
-        $stratusResponse = $stratusApp->run($stratusRequest);
+        $stratusResponse = $page->run($stratusRequest);
 
         if ($stratusResponse->isSuccessful()) {
-            $appSource = s($stratusApp);
+            $appSource = s($page);
         }
 
         $bus->close();

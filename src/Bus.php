@@ -23,9 +23,9 @@ class Bus implements BusInterface
 
     public function write(array $data)
     {
-        $json = json_encode($data);
+        $msg = json_encode($data).'%SSS%';
 
-        socket_write($this->socket, $json, strlen($json));
+        socket_write($this->socket, $msg, strlen($msg));
     }
 
     public function close()

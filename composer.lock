@@ -2308,12 +2308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thenlabs/stratus-php.git",
-                "reference": "85d268da184476d6debb369c425d5e5d2fa49c5b"
+                "reference": "c62d64a51dbe87810d044c257e791a259e8f0b56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thenlabs/stratus-php/zipball/85d268da184476d6debb369c425d5e5d2fa49c5b",
-                "reference": "85d268da184476d6debb369c425d5e5d2fa49c5b",
+                "url": "https://api.github.com/repos/thenlabs/stratus-php/zipball/c62d64a51dbe87810d044c257e791a259e8f0b56",
+                "reference": "c62d64a51dbe87810d044c257e791a259e8f0b56",
                 "shasum": ""
             },
             "require": {
@@ -2348,7 +2348,7 @@
                 "issues": "https://github.com/thenlabs/stratus-php/issues",
                 "source": "https://github.com/thenlabs/stratus-php/tree/master"
             },
-            "time": "2020-11-02T13:43:42+00:00"
+            "time": "2020-11-02T20:02:19+00:00"
         },
         {
             "name": "true/punycode",
