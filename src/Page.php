@@ -18,17 +18,13 @@ class Page extends AbstractAppWithSElements
 
     public function getView(array $data = []): string
     {
-        $loader = new FilesystemLoader(__DIR__.'/../templates');
-        $twig = new Environment($loader);
-        $template = $twig->load('index.html.twig');
-
-        return $template->render();
+        return file_get_contents(__DIR__.'/../templates/index.html');
     }
 
     public function onUpdate($event): void
     {
-        $this->badgeInbox->removeClass('d-none');
-        $this->badgeInbox->textContent = count($this->emails);
+        // $this->badgeInbox->removeClass('d-none');
+        // $this->badgeInbox->textContent = count($this->emails);
     }
 
     public function getOwnDependencies(): array
