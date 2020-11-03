@@ -12,8 +12,6 @@ use ThenLabs\ComposedViews\Asset\Script;
  */
 class Page extends AbstractAppWithSElements
 {
-    protected $emails;
-
     public function getView(array $data = []): string
     {
         return file_get_contents(__DIR__.'/../templates/index.html');
@@ -38,10 +36,5 @@ class Page extends AbstractAppWithSElements
         $dependencies[] = $script;
 
         return $dependencies;
-    }
-
-    public function setEmails(array &$emails): void
-    {
-        $this->emails = $emails;
     }
 }

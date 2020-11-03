@@ -6,8 +6,6 @@ use Zend\Mail\Message;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-$contextOptions = [];
-
 $logger = new Logger('smtp_example');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
 
@@ -18,8 +16,7 @@ $options = [
 ];
 $server = new Server($options);
 
-$sendEvent = new Event(Event::TRIGGER_NEW_MAIL, null, function (Event $event, string $from, array $rcpts, Message $mail) use (&$emails) {
-    $emails[] = $mail;
+$sendEvent = new Event(Event::TRIGGER_NEW_MAIL, null, function (Event $event, string $from, array $rcpts, Message $mail) {
 });
 
 $server->addEvent($sendEvent);

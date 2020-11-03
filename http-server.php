@@ -20,7 +20,7 @@ $dispatcher = $httpServer->getDispatcher();
 
 $appSource = null;
 
-$dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource, &$emails) {
+$dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource) {
     $request = $event->getRequest();
     $response = $event->getResponse();
 
@@ -37,8 +37,6 @@ $dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource
         $event->stopPropagation();
     } elseif (0 === strpos($uri, '/controller')) {
         $page = u($appSource);
-
-        $page->setEmails($emails);
 
         $clientSocket = $event->getClientSocket();
         $bus = new Bus($clientSocket);
