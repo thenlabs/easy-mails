@@ -10,8 +10,7 @@
     "require": {
         "thefox/smtpd": "^0.7.0",
         "thenlabs/stratus-php": "dev-master",
-        "thenlabs/http-server": "dev-main",
-        "twig/twig": "^3.0"
+        "thenlabs/http-server": "dev-main"
     },
     "autoload": {
         "psr-4": {

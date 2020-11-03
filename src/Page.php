@@ -6,8 +6,6 @@ namespace ThenLabs\EasyMails;
 use ThenLabs\StratusPHP\AbstractAppWithSElements;
 use ThenLabs\ComposedViews\Event\RenderEvent;
 use ThenLabs\ComposedViews\Asset\Script;
-use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
 
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
