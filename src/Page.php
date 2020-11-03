@@ -40,7 +40,7 @@ class Page extends AbstractAppWithSElements
         return $dependencies;
     }
 
-    public function setEmails(array $emails): void
+    public function setEmails(array &$emails): void
     {
         $this->emails = $emails;
     }

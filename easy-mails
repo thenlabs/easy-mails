@@ -2,7 +2,11 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
-$emails = [];
+$emails = [
+    'inbox' => [],
+    'sent' => [],
+    'trash' => [],
+];
 
 $httpServer = require_once 'http-server.php';
 $httpServer->start();
