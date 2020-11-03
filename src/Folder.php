@@ -36,4 +36,9 @@ abstract class Folder
     {
         return static::get('trash');
     }
+
+    public static function readed(): SplObjectStorage
+    {
+        return static::get('readed');
+    }
 }

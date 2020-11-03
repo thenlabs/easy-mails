@@ -46,9 +46,10 @@ class Page extends AbstractAppWithSElements
     private function filterUnreads(SplObjectStorage $folder): array
     {
         $result = [];
+        $readedFolder = Folder::readed();
 
         foreach ($folder as $mail) {
-            if (! $mail->isRead()) {
+            if (! $readedFolder->contains($mail)) {
                 $result[] = $mail;
             }
         }
