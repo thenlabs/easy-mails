@@ -6,6 +6,8 @@ namespace ThenLabs\EasyMails;
 use ThenLabs\StratusPHP\AbstractAppWithSElements;
 use ThenLabs\ComposedViews\Event\RenderEvent;
 use ThenLabs\ComposedViews\Asset\Script;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
@@ -16,7 +18,11 @@ class Page extends AbstractAppWithSElements
 
     public function getView(array $data = []): string
     {
-        return file_get_contents(__DIR__.'/../templates/index.html');
+        $loader = new FilesystemLoader(__DIR__.'/../templates');
+        $twig = new Environment($loader);
+        $template = $twig->load('index.html.twig');
+
+        return $template->render();
     }
 
     public function onUpdate($event): void
