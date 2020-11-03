@@ -19,13 +19,19 @@ class Page extends AbstractAppWithSElements
         return file_get_contents(__DIR__.'/../templates/index.html');
     }
 
+    public function onUpdate($event): void
+    {
+        $this->badgeInbox->removeClass('d-none');
+        $this->badgeInbox->textContent = count($this->emails);
+    }
+
     public function getOwnDependencies(): array
     {
         $script = new Script('easy-mails', null, '');
         $script->setSource("
             setInterval(() => {
                 stratusAppInstance.dispatch('update', {}, false);
-            }, 1000);
+            }, 2000);
         ");
 
         $dependencies = parent::getOwnDependencies();
@@ -37,11 +43,5 @@ class Page extends AbstractAppWithSElements
     public function setEmails(array $emails): void
     {
         $this->emails = $emails;
-    }
-
-    public function onUpdate($event): void
-    {
-        $this->badgeInbox->removeClass('d-none');
-        $this->badgeInbox->textContent = mt_rand(1, 10);
     }
 }
