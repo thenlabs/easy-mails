@@ -26,6 +26,13 @@ class Page extends AbstractAppWithSElements
         } else {
             $this->badgeInbox->addClass('d-none');
         }
+
+        if ($totalOfUnreadsTrash = count($this->filterUnreads(Folder::trash()))) {
+            $this->badgeTrash->removeClass('d-none');
+            $this->badgeTrash->textContent = $totalOfUnreadsTrash;
+        } else {
+            $this->badgeTrash->addClass('d-none');
+        }
     }
 
     public function getOwnDependencies(): array
