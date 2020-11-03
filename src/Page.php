@@ -20,7 +20,7 @@ class Page extends AbstractAppWithSElements
 
     public function onUpdate($event): void
     {
-        if ($totalOfUnreadsInbox = count($this->filterUnreads(MailFolder::inbox()))) {
+        if ($totalOfUnreadsInbox = count($this->filterUnreads(Folder::inbox()))) {
             $this->badgeInbox->removeClass('d-none');
             $this->badgeInbox->textContent = $totalOfUnreadsInbox;
         } else {

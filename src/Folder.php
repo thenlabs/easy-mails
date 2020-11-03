@@ -9,7 +9,7 @@ use SplObjectStorage;
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
  * @abstract
  */
-abstract class MailFolder
+abstract class Folder
 {
     static protected $folders = [];
 
