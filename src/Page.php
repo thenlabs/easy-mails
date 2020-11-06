@@ -18,7 +18,7 @@ class Page extends AbstractAppWithSElements
         return file_get_contents(__DIR__.'/../templates/index.html');
     }
 
-    public function onUpdate($event): void
+    public function onUpdate(): void
     {
         if ($totalOfUnreadsInbox = count($this->filterUnreads(Folder::inbox()))) {
             $this->badgeInbox->removeClass('d-none');
@@ -33,6 +33,28 @@ class Page extends AbstractAppWithSElements
         } else {
             $this->badgeTrash->addClass('d-none');
         }
+    }
+
+    public function onClickInboxLink(): void
+    {
+        $this->tbody->innerHTML = <<<HTML
+            <tr>
+                <td>
+                    <div class="icheck-primary">
+                        <input type="checkbox" value="" id="check1">
+                        <label for="check1"></label>
+                    </div>
+                </td>
+                <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
+                <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                <td class="mailbox-subject"><b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...
+                </td>
+                <td class="mailbox-attachment"></td>
+                <td class="mailbox-date">5 mins ago</td>
+            </tr>
+        HTML;
+
+        $this->onUpdate();
     }
 
     public function getOwnDependencies(): array

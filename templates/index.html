@@ -114,18 +114,18 @@
             <div class="card-body p-0">
               <ul class="nav nav-pills flex-column">
                 <li class="nav-item active">
-                  <a href="javascript:;" class="nav-link" data-folder="inbox">
+                  <a s-element="inboxLink" href="javascript:;" class="nav-link" data-folder="inbox">
                     <i class="fas fa-inbox"></i> Inbox
                     <span s-element="badgeInbox" class="badge bg-primary float-right d-none">0</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:;" class="nav-link" data-folder="sent">
+                  <a s-element="sentLink" href="javascript:;" class="nav-link" data-folder="sent">
                     <i class="far fa-envelope"></i> Sent
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:;" class="nav-link" data-folder="trash">
+                  <a s-element="trashLink" href="javascript:;" class="nav-link" data-folder="trash">
                     <i class="far fa-trash-alt"></i> Trash
                     <span s-element="badgeTrash" class="badge bg-primary float-right d-none">0</span>
                   </a>
@@ -179,7 +179,7 @@
               </div>
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
-                  <tbody>
+                  <tbody s-element="tbody">
                   </tbody>
                 </table>
                 <!-- /.table -->

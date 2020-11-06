@@ -28,6 +28,7 @@ $dispatcher->addListener(RequestEvent::class, function ($event) use (&$appSource
 
     if ($uri == '/') {
         $page = new Page('/controller');
+        $page->setDebug(true);
 
         $page->on('update', [$page, 'onUpdate']);
 
