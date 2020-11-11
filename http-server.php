@@ -13,6 +13,7 @@ use function Opis\Closure\{serialize as s, unserialize as u};
 $httpServer = new HttpServer([
     'host' => '127.0.0.1',
     'port' => 8800,
+    'blocking' => false,
     'document_root' => __DIR__.'/public',
 ]);
 

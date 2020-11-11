@@ -52,7 +52,7 @@ class Folder
 
     public function add(Mail $mail): void
     {
-        $fileName = $this->fullPath.'/'.$mail->getId();
+        $fileName = $this->fullPath.'/'.$mail->getId().'.mail';
 
         file_put_contents($fileName, serialize($mail));
     }

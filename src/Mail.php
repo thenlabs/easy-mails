@@ -23,6 +23,11 @@ class Mail
         $this->message = $message;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getMessage(): Message
     {
         return $this->message;
