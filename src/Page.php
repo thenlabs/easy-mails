@@ -20,8 +20,28 @@ class Page extends AbstractAppWithSElements
         return file_get_contents(__DIR__.'/../templates/index.html');
     }
 
+    public function onClickLinkInbox(): void
+    {
+        $this->currentFolderName = 'inbox';
+        $this->onUpdate();
+    }
+
+    public function onClickLinkSent(): void
+    {
+        $this->currentFolderName = 'sent';
+        $this->onUpdate();
+    }
+
+    public function onClickLinkTrash(): void
+    {
+        $this->currentFolderName = 'trash';
+        $this->onUpdate();
+    }
+
     public function onUpdate(): void
     {
+        $this->contentTitle->textContent = ucfirst($this->currentFolderName);
+
         if ($totalOfUnreadsInbox = count(Folder::inbox()->getUnreads())) {
             $this->badgeInbox->removeClass('d-none');
             $this->badgeInbox->textContent = $totalOfUnreadsInbox;
@@ -43,10 +63,10 @@ class Page extends AbstractAppWithSElements
             $tbody .= '
                 <tr>
                     <td>
-                      <div class="icheck-primary">
-                        <input type="checkbox" value="" id="check1">
-                        <label for="check1"></label>
-                      </div>
+                        <div class="icheck-primary">
+                            <input type="checkbox" value="" id="check1">
+                            <label for="check1"></label>
+                        </div>
                     </td>
                     <td class="mailbox-star"><a href="javascript:;"></a></td>
                     <td class="mailbox-name"><a href="javascript:;">Alexander Pierce</a></td>
