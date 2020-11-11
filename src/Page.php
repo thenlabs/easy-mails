@@ -40,7 +40,21 @@ class Page extends AbstractAppWithSElements
 
         $tbody = '';
         foreach ($currentFolder->getAll() as $mail) {
-            $tbody .= (new MailListItemView($mail))->render();
+            $tbody .= '
+                <tr>
+                    <td>
+                      <div class="icheck-primary">
+                        <input type="checkbox" value="" id="check1">
+                        <label for="check1"></label>
+                      </div>
+                    </td>
+                    <td class="mailbox-star"><a href="javascript:;"></a></td>
+                    <td class="mailbox-name"><a href="javascript:;">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...</td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">5 mins ago</td>
+                </tr>
+            ';
         }
         $this->tbody->innerHTML = $tbody;
     }
