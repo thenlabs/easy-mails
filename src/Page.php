@@ -58,19 +58,4 @@ class Page extends AbstractAppWithSElements
         }
         $this->tbody->innerHTML = $tbody;
     }
-
-    public function getOwnDependencies(): array
-    {
-        $script = new Script('easy-mails', null, '');
-        $script->setSource("
-            setInterval(() => {
-                stratusAppInstance.dispatch('update', {}, false);
-            }, 2000);
-        ");
-
-        $dependencies = parent::getOwnDependencies();
-        $dependencies[] = $script;
-
-        return $dependencies;
-    }
 }
