@@ -14,7 +14,7 @@ class Folder
 
     public function __construct(string $path, string $name)
     {
-        $this->fullPath = $path.'/'.$name;
+        $this->fullPath = $path.'/.easy-mails/'.$name;
 
         if (! is_dir($this->fullPath)) {
             mkdir($this->fullPath);

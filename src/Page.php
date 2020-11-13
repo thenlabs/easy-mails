@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ThenLabs\EasyMails;
 
 use ThenLabs\StratusPHP\AbstractAppWithSElements;
+use ThenLabs\StratusPHP\Annotation\StratusEventListener;
 use ThenLabs\ComposedViews\Event\RenderEvent;
 use ThenLabs\ComposedViews\Asset\Script;
 use ThenLabs\EasyMails\View\MailListItemView;
@@ -38,6 +39,29 @@ class Page extends AbstractAppWithSElements
         $this->onUpdate();
     }
 
+    /**
+     * @StratusEventListener(frontListener="
+     *     let selectedItems = [];
+     *
+     * ")
+     */
+    public function onClickButtonMoveToTrash($event): void
+    {
+        $selectedItems = $event->getEventData()['selectedItems'];
+
+        $currentFolder = $this->getCurrentFolder();
+        $mails = $currentFolder->getAll();
+
+        foreach ($mails as $mail) {
+            if (in_array($mail->getId(), $selectedItems)) {
+                $currentFolder->drop($mail);
+                Folder::trash()->add($mail);
+            }
+        }
+
+        $this->update();
+    }
+
     public function onUpdate(): void
     {
         $this->contentTitle->textContent = ucfirst($this->currentFolderName);
@@ -56,13 +80,16 @@ class Page extends AbstractAppWithSElements
             $this->badgeTrash->addClass('d-none');
         }
 
-        $currentFolder = Folder::getFolder($this->currentFolderName);
-
         $tbody = '';
-        foreach ($currentFolder->getAll() as $mail) {
+        foreach ($this->getCurrentFolder()->getAll() as $mail) {
             $listItemView = new MailListItemView($mail);
             $tbody .= $listItemView->render();
         }
         $this->tbody->innerHTML = $tbody;
+    }
+
+    public function getCurrentFolder(): Folder
+    {
+        return Folder::getFolder($this->currentFolderName);
     }
 }
