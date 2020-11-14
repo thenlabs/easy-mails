@@ -1,7 +1,7 @@
 <tr>
     <td>
         <div class="icheck-primary">
-            <input type="checkbox" value="" id="check-<?= $this->mail->getId() ?>">
+            <input type="checkbox" value="" id="check-<?= $this->mail->getId() ?>" data-mail-id="<?= $this->mail->getId() ?>">
             <label for="check-<?= $this->mail->getId() ?>"></label>
         </div>
     </td>

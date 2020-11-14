@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ThenLabs\EasyMails\View;
 
 use ThenLabs\ComposedViews\AbstractView;
+use ThenLabs\EasyMails\Mail;
 
 class MailListItemView extends AbstractView
 {

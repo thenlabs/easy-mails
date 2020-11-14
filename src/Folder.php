@@ -17,7 +17,7 @@ class Folder
         $this->fullPath = $path.'/.easy-mails/'.$name;
 
         if (! is_dir($this->fullPath)) {
-            mkdir($this->fullPath);
+            mkdir($this->fullPath, 0777, true);
         }
     }
 
@@ -59,7 +59,7 @@ class Folder
 
     public function drop(Mail $mail): void
     {
-        $fileName = $this->fullPath.'/'.$mail->getId();
+        $fileName = $this->fullPath.'/'.$mail->getId().'.mail';
 
         unlink($fileName);
     }

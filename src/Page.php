@@ -24,25 +24,31 @@ class Page extends AbstractAppWithSElements
     public function onClickLinkInbox(): void
     {
         $this->currentFolderName = 'inbox';
-        $this->onUpdate();
+        $this->updateList();
     }
 
     public function onClickLinkSent(): void
     {
         $this->currentFolderName = 'sent';
-        $this->onUpdate();
+        $this->updateList();
     }
 
     public function onClickLinkTrash(): void
     {
         $this->currentFolderName = 'trash';
-        $this->onUpdate();
+        $this->updateList();
     }
 
     /**
      * @StratusEventListener(frontListener="
      *     let selectedItems = [];
      *
+     *     let checkedInputs = tbody.querySelectorAll('input:checked');
+     *     for (let input of checkedInputs) {
+     *         selectedItems.push(input.getAttribute('data-mail-id'));
+     *     }
+     *
+     *     eventData.selectedItems = selectedItems;
      * ")
      */
     public function onClickButtonMoveToTrash($event): void
@@ -59,7 +65,7 @@ class Page extends AbstractAppWithSElements
             }
         }
 
-        $this->update();
+        $this->onUpdate();
     }
 
     public function onUpdate(): void
@@ -79,7 +85,10 @@ class Page extends AbstractAppWithSElements
         } else {
             $this->badgeTrash->addClass('d-none');
         }
+    }
 
+    public function updateList(): void
+    {
         $tbody = '';
         foreach ($this->getCurrentFolder()->getAll() as $mail) {
             $listItemView = new MailListItemView($mail);
